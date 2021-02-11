@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>ag_integration</name>
+  <version>0.0.0</version>
+  <description>
+    Integration scripts for aeroguide testing
+  </description>
+
+  <maintainer email="stlucas@ethz.ch">Lucas Streichenberg</maintainer>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>catkin_simple</buildtool_depend>
+
+  <exec_depend>admittance_controller</exec_depend>
+  <exec_depend>mav_nonlinear_mpc</exec_depend>
+  <exec_depend>unscented_kalman_filter</exec_depend>
+
+</package>

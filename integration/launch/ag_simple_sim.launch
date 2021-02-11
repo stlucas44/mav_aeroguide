@@ -1,0 +1,20 @@
+<launch>
+  <arg name="mav_name" default="firefly" />
+  <arg name="namespace" default="$(arg mav_name)"/>
+
+
+  <!-- start controller -->
+  <include file="$(find mav_nonlinear_mpc)/launch/mav_nonlinear_mpc_sim.launch">
+    <arg name="mav_name" value="$(arg mav_name)"/>
+    <remap from="command/trajectory" to="admc_reference_trajectory"/>
+  </include>
+
+  <!-- start admitance controller -->
+  <include file="$(find admittance_controller)/launch/dev_admc_ukf.launch">
+    <remap from="command/trajectory" to="admc_reference_trajectory"/>
+
+    <arg name="mav_name" value="$(arg mav_name)"/>
+    <arg name="mav_type" value="$(arg mav_name)"/>
+  </include>
+
+</launch>
