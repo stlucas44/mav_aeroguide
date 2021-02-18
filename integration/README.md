@@ -38,7 +38,7 @@ You will need the following packages:
 * `pose_sensor_vicon` (msf for vicon + imu fusion)
 * `state_monitor`
 
-### Startup State estimation and MPC:
+### Startup State estimation and MPC (w.o. admittance):
 For vicon and state estimation setup, perform the following steps in node_manger:
 1. Engage a ros core on your Kiwi and your computers (top left wkindow)
 2. Go to `mav_tools\mav_startup\launch\pixhawk` and load `kiwi.launch` (lower left window) -> IMPORTANT: set state_estimator parameter to `vicon`
@@ -50,9 +50,23 @@ For vicon and state estimation setup, perform the following steps in node_manger
 
 Now your ready to operate the MPC.
 
-### Startup the admittance controller:
-For admittance startup and activation perform the following steps in node_manager:
-1. Search for 'ag_simple.launch' and load with settings
+### Startup State estimation and MPC (for admittance):
+1. Engage a ros core on your Kiwi and your computers (top left wkindow)
+2. Go to `ag_integration\launch\ac_simple.launch` and load `ac_simple.launch` (lower left window) -> IMPORTANT: set state_estimator parameter to `vicon` (if not set as default)
+3. Launch `vrpn_client`
+4. Launch `mav_ros`
+5. Launch `pose_sensor_vicon`
+6. Initialize `msf` with scale 1.0 (`rosservice call initialize_msf`)
+7. Via state_monitor, check if msf is stable
+8. Launch `mav_nonlinear_mpc`
+9. Launch `admittance_controller`
+
+Now all the tools are set up to fly:
+1. Take off manually and switch to offboard ctrl
+2. `rosservice call /firefly/back_to_position_hold`
+3. `rosservice call /firefly/admc_engage_controller "data: True"`
+
+Now the drone should react compliantly to external force inputs
 
 ### Set force setpoints
 Now we send desired force commands via node_manager to topic `/firefly/human_control_force`

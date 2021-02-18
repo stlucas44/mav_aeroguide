@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <!-- general args -->
+  <arg name="mav_name" default="kiwi" />
+
+  <!-- args for kiwi_launch -->
+  <arg name="dir_launch_files" value="$(find mav_startup)/launch/pixhawk/noliro" />
+  <arg name="dir_sensor_launch_files" value="$(find mav_startup)/launch/sensors" />
+
+  <arg name="state_estimator" default="vicon" />
+
+  <arg name="launch_mapping_planning" default="true" />
+  <arg name="auto_reset_cam_topics" default="true" />
+  <arg name="transform_topic" default="rovio/transform" />
+  <arg name="odometry_topic" default="rovio/odometry" />
+  <arg name="odometry_topic_mpc" default="msf_core/odometry"/> <!-- odom_predictor/predicted_odometry / msf_core/odometry -->
+  <arg name="command_trajectory_mpc" default="admc_reference_trajectory" />
+
+  <!-- args for admittance_controller -->
+  <!-- none so far -->
+
+  <!-- launch kiwi base-->
+  <include file="$(find mav_startup)/launch/pixhawk/kiwi.launch">
+  </include>
+
+  <!-- start admitance controller -->
+  <include file="$(find admittance_controller)/launch/dev_admc_do.launch">
+    <arg name="mav_namespace" value="$(arg mav_name)"/>
+    <arg name="mav_type" value="$(arg mav_name)"/>
+    <arg name="odometry" value="$(arg odometry_topic_mpc)" />
+  </include>
+ </launch>
