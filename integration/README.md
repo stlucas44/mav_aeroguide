@@ -45,7 +45,7 @@ For vicon and state estimation setup, perform the following steps in node_manger
 3. Launch `vrpn_client`
 4. Launch `mav_ros`
 5. Launch `pose_sensor_vicon`
-6. Initialize `msf` with scale 1.0 (`rosservice call initialize_msf`)
+6. Initialize `msf` with scale 1.0 (`rosservice call initialize_msf_scale`)
 7. Launch `mav_nonlinear_mpc`
 
 Now your ready to operate the MPC.

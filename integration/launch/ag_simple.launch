@@ -9,7 +9,7 @@
 
   <arg name="state_estimator" default="vicon" />
 
-  <arg name="launch_mapping_planning" default="true" />
+  <arg name="launch_mapping_planning" default="false" />
   <arg name="auto_reset_cam_topics" default="true" />
   <arg name="transform_topic" default="rovio/transform" />
   <arg name="odometry_topic" default="rovio/odometry" />
@@ -21,6 +21,16 @@
 
   <!-- launch kiwi base-->
   <include file="$(find mav_startup)/launch/pixhawk/kiwi.launch">
+    <arg name="mav_name" value="$(arg mav_name)" />
+    <arg name="dir_launch_files" value="$(arg dir_launch_files)" />
+    <arg name="dir_sensor_launch_files" value="$(arg dir_sensor_launch_files)" />
+    <arg name="state_estimator" value="$(arg state_estimator)" />
+    <arg name="launch_mapping_planning" value="$(arg launch_mapping_planning)" />
+    <arg name="auto_reset_cam_topics" value="$(arg auto_reset_cam_topics)" />
+    <arg name="transform_topic" value="$(arg transform_topic)" />
+    <arg name="odometry_topic" value="$(arg odometry_topic)" />
+    <arg name="odometry_topic_mpc" value="$(arg odometry_topic_mpc)" />
+    <arg name="command_trajectory_mpc" value="$(arg command_trajectory_mpc)" />
   </include>
 
   <!-- start admitance controller -->

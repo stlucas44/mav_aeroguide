@@ -1,0 +1,15 @@
+<launch>
+  <arg name="mav_name" default="kiwi" />
+  <arg name="bag_base" default="/home/$(env USER)/bags/" />
+
+  <group ns="$(arg mav_name)">
+    <!-- Rosbag  -->
+    <node pkg="rosbag" type="record" name="rosbag_record_sensors" output="screen"
+      args="--buffsize=0
+      --output-prefix=$(arg bag_base)sensors
+      -e
+      '/tf(.*)|(.*)/admittance_controller_node|(.*)/mav_nonlinear_mpc(.*)|(.*)/msf_core(.*)'" />
+
+  </group>
+
+</launch>
