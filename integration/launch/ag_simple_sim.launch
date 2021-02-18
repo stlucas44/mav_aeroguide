@@ -4,17 +4,26 @@
 
 
   <!-- start controller -->
+  <remap from="command/trajectory" to="admc_reference_trajectory"/>
   <include file="$(find mav_nonlinear_mpc)/launch/mav_nonlinear_mpc_sim.launch">
     <arg name="mav_name" value="$(arg mav_name)"/>
-    <remap from="command/trajectory" to="admc_reference_trajectory"/>
   </include>
 
-  <!-- start admitance controller -->
-  <include file="$(find admittance_controller)/launch/dev_admc_ukf.launch">
-    <remap from="command/trajectory" to="admc_reference_trajectory"/>
-
-    <arg name="mav_name" value="$(arg mav_name)"/>
+  <!-- start admitance controller with MPC dist observer -->
+  <include file="$(find admittance_controller)/launch/dev_admc_do.launch">
+    <arg name="mav_namespace" value="$(arg mav_name)"/>
     <arg name="mav_type" value="$(arg mav_name)"/>
+  </include>
+
+  <!-- standard firefly launch
+  <include file="$(find rotors_gazebo)/launch/mav.launch">
+    <arg name="mav_name" value="$(arg mav_name)"/>
+  </include>
+  -->
+
+  <!-- firefly launch with external force plugin -->
+  <include file="$(find mav_external_force_plugin)/launch/mav_with_external_force_plugin.launch">
+    <arg name="mav_name" value="$(arg mav_name)"/>
   </include>
 
 </launch>
